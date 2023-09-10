@@ -4,7 +4,7 @@ from airflow.operators.bash import BashOperator
 from datetime import datetime
 
 @dag(start_date=datetime(2023, 1 , 1), schedule='@daily', catchup=False)
-def parallel_dag():
+def private_dag():
 
     tasks = [BashOperator(task_id='task_{0}'.format(t), bash_command='sleep 60'.format(t)) for t in range(1, 4)]
 
@@ -19,4 +19,4 @@ def parallel_dag():
 
     tasks >> task_5(task_4(42))
 
-parallel_dag()
+private_dag()
